@@ -18,42 +18,42 @@ if 'messages' not in st.session_state:
 
 
 class IntentsList:
-    def __init__(self):
-        """
-        The api of Gaud Open Platform is used here.
+    # def __init__(self):
+    #     """
+    #     The api of Gaud Open Platform is used here.
 
-        https://lbs.amap.com/api/webservice/guide/api/weatherinfo
-        """
-        self.weather_api_url = "https://restapi.amap.com/v3/weather/weatherInfo"
-        self.amap_api_key = env['AMAP_API_KEY']
+    #     https://lbs.amap.com/api/webservice/guide/api/weatherinfo
+    #     """
+    #     self.weather_api_url = "https://restapi.amap.com/v3/weather/weatherInfo"
+    #     self.amap_api_key = env['AMAP_API_KEY']
 
-    def query_city_weather(self, city):
-        """
-        Query the weather temperature of the city.
+    # def query_city_weather(self, city):
+    #     """
+    #     Query the weather temperature of the city.
 
-        Args:
-            city (str): Cities that should be queried.
-        """
-        params = {
-            "key": self.amap_api_key,
-            "city": city,
-            "output": "json",
-            "extensions": "all",
-        }
+    #     Args:
+    #         city (str): Cities that should be queried.
+    #     """
+    #     params = {
+    #         "key": self.amap_api_key,
+    #         "city": city,
+    #         "output": "json",
+    #         "extensions": "all",
+    #     }
 
-        response = rq.get(self.weather_api_url, params=params)
+    #     response = rq.get(self.weather_api_url, params=params)
 
-        response.raise_for_status()
+    #     response.raise_for_status()
 
-        weather_data = response.json()
+    #     weather_data = response.json()
 
-        return json.dumps(weather_data)
+    #     return json.dumps(weather_data)
 
-        for item in weather_data['forecasts']:
-            st.markdown(f"{item['province'] + item['city']} is as follows：")
-            for cast in item['casts']:
-                st.markdown(
-                    f"**{cast['date']}**  ：`dayweather`：{cast['dayweather']}, `nightweather`：{cast['nightweather']}, `daytemp`: {cast['daytemp']}, `nighttemp`：{cast['nighttemp']}")
+    #     for item in weather_data['forecasts']:
+    #         st.markdown(f"{item['province'] + item['city']} is as follows：")
+    #         for cast in item['casts']:
+    #             st.markdown(
+    #                 f"**{cast['date']}**  ：`dayweather`：{cast['dayweather']}, `nightweather`：{cast['nightweather']}, `daytemp`: {cast['daytemp']}, `nighttemp`：{cast['nighttemp']}")
 
     @staticmethod
     def send_email(to_email, title, body):
